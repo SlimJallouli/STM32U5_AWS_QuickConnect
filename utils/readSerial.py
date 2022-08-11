@@ -26,7 +26,6 @@ def serial_reader(COM):
 
 
 if __name__ == "__main__":
-    os.system("start \"\" " + "https://" + credentials['Entered']['AppName'] + ".azureiotcentral.com/application/management")
     serial_reader(get_com())
 
 

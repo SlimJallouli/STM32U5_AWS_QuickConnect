@@ -4,12 +4,11 @@ import platform
 import string
 import sys
 import time
-import atexit
 import serial.tools.list_ports
 
 
 #BIN File name
-BIN_FILE = '.\\b_u585i_iot02a_ntz.bin'
+BIN_FILE = '.\\bin\\b_u585i_iot02a_ntz.bin'
 
 # List of possible board labels
 boards = ["DIS_U585AI"]

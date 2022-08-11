@@ -1,3 +1,3 @@
-call python flash.py
-call python provision.py -i -v
-call python readSerial.py
+call python utils\flash.py
+call python utils\provision.py -i -v
+call python utils\readSerial.py
