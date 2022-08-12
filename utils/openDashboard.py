@@ -11,7 +11,9 @@ HELP = ['openDashboard.py options:',
 
 def main(argv):
 
-    key = secretKey = deviceName = ''
+    key = ''
+    secretKey = ''
+    deviceName = ''
 
     # Collect Parameters from command line
     try:
@@ -27,14 +29,16 @@ def main(argv):
         elif opt in ("--key-id"):
             key = arg
 
-        elif opt in ("secret-key="):
+        elif opt in ("--secret-key"):
             secretKey = arg
 
-        elif opt in ("device-id="):
+        elif opt in ("--device-id"):
             deviceName = arg
 
+        
+    print(key, secretKey, deviceName)
        
-        os.system("start \"\" " + "http://stm32u5-aws-dashboard.s3-website-us-east-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName)
+    # os.system("start \"\" " + "http://stm32u5-aws-dashboard.s3-website-us-east-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
