@@ -3,8 +3,8 @@
 set name=G213801835
 set ssid=STTestN750
 set pswd=9a1v2r73027
-set key=
-set secretKey=
+set key=AKIAQC3VOUARXGGMWHHO
+set secretKey=7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS
 set dummySSID=0
 set dummyPSWD=0
 

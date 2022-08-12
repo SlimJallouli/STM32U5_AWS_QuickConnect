@@ -39,7 +39,7 @@ def main(argv):
 
         
     
-    url ="http://stm32u5-aws-dashboard.s3-website-us-east-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
+    url ="http://stm32u5-dashboard.s3-website-us-west-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
     webbrowser.open(url)
 
     path = os.path.join('.\\', "STM32U5_AWS_Dashbaord.url")

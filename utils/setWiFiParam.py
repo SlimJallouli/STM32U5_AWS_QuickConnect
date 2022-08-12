@@ -38,6 +38,8 @@ def main(argv):
 
     com = get_com()
 
+#TODO : add try catch to check if port is available
+
     try:
         opts, args = getopt.getopt(argv,"h", ["help", "ssid=", "password="])
     except getopt.GetoptError:
