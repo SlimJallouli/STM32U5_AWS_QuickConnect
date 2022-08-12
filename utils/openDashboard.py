@@ -1,5 +1,7 @@
 import os, sys
 import getopt
+import webbrowser
+
 
 
 HELP = ['openDashboard.py options:', 
@@ -36,9 +38,15 @@ def main(argv):
             deviceName = arg
 
         
-    print(key, secretKey, deviceName)
-       
-    # os.system("start \"\" " + "http://stm32u5-aws-dashboard.s3-website-us-east-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName)
+    
+    url ="http://stm32u5-aws-dashboard.s3-website-us-east-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
+    webbrowser.open(url)
+
+    path = os.path.join('.\\', "STM32U5_AWS_Dashbaord.url")
+    shortcut = open(path, 'w')
+    shortcut.write('[InternetShortcut]\n')
+    shortcut.write('URL=%s' % url)
+    shortcut.close()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

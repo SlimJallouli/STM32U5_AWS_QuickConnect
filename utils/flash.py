@@ -71,9 +71,8 @@ def get_com():
 
 if __name__ == "__main__":
     com = get_com()
+    
     flash_board(BIN_FILE, find_path(platform.platform()))
-
-    time.sleep(5)
 
     # Wait until data comes through
     port = serial.Serial(com, 115200)
