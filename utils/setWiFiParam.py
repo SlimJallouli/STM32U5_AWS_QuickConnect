@@ -1,3 +1,4 @@
+from mimetypes import common_types
 import serial, serial.tools.list_ports
 import time
 import getopt, sys
@@ -17,32 +18,33 @@ def get_com():
     return " PORT ERR "
 
 
-def set_param(com, key, value):
-    ser = serial.Serial(com, 115200)
-
+def set_param(com, key, value, ser):
+    #print('conf set ' + key + ' ' + value)
     ser.write(bytes('conf set ' + key + ' ' + value + '\r\n', 'utf-8'))
-    print('conf set ' + key + ' ' + value + '\r\n')
-    time.sleep(2)
-    ser.write(bytes('conf commit\r\n', 'utf-8'))
-    time.sleep(2)
-    ser.write(bytes('reset\r\n', 'utf-8'))
-    time.sleep(3)
-
-    ser.close()
+    time.sleep(0.1)
     
+def commit(ser):
+    ser.write(bytes('conf commit\r\n', 'utf-8'))
+    time.sleep(0.5)
 
-
+def reset(ser):
+    ser.write(bytes('reset\r\n', 'utf-8'))
+    time.sleep(1)
 
 
 def main(argv):
-
-    com = get_com()
-
-#TODO : add try catch to check if port is available
-
+    Commit = False
     try:
         opts, args = getopt.getopt(argv,"h", ["help", "ssid=", "password="])
     except getopt.GetoptError:
+        sys.exit()
+
+    com = get_com()
+
+    try:
+        ser = serial.Serial(com, 115200)
+    except  Exception:  
+        print("\r\nCould not open serial port\r\n")
         sys.exit()
 
     for opt, arg in opts:
@@ -51,12 +53,22 @@ def main(argv):
             sys.exit()
 
         elif opt in ("--ssid"):
-            set_param(com, 'wifi_ssid', arg)
+            print("Setting Wi-F- SSID")
+            set_param(com, 'wifi_ssid', arg, ser)
+            Commit = True
 
         elif opt in ("--password"):
-            set_param(com, 'wifi_credential', arg)
+            print("Setting Wi-F- Password")
+            set_param(com, 'wifi_credential', arg, ser)
+            Commit = True
 
-
+    if (Commit == True):
+        print("Commit changes")
+        commit(ser)
+        print("Device reset")
+        reset(ser)
+    
+    ser.close()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
