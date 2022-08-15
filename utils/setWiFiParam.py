@@ -53,12 +53,12 @@ def main(argv):
             sys.exit()
 
         elif opt in ("--ssid"):
-            print("Setting Wi-F- SSID")
+            print("Setting Wi-Fi SSID")
             set_param(com, 'wifi_ssid', arg, ser)
             Commit = True
 
         elif opt in ("--password"):
-            print("Setting Wi-F- Password")
+            print("Setting Wi-Fi Password")
             set_param(com, 'wifi_credential', arg, ser)
             Commit = True
 
