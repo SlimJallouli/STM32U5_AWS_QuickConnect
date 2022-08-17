@@ -21,12 +21,13 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"h", ["help", "key-id=", "secret-key=", "device-id="])
     except getopt.GetoptError:
-        sys.exit()
+        print('Parameter Error')
+        sys.exit(1)
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             print(*HELP)
-            sys.exit()
+            sys.exit(1)
 
         elif opt in ("--key-id"):
             key = arg
@@ -49,4 +50,8 @@ def main(argv):
     shortcut.close()
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    try:
+        main(sys.argv[1:])
+    except Exception as e:
+        print(e)
+        sys.exit(1)

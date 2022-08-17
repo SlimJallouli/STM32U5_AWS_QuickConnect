@@ -28,6 +28,8 @@ def serial_reader(COM):
     except KeyboardInterrupt:
         quit()
         
+
+
     
 
 

@@ -54,28 +54,24 @@ def find_path(op_sys):
                     break
     else:
         print("Operating System error")
-        sys.exit()
+        sys.exit(1)
+
+    if USBPATH == '':
+        print("Board Not Found Error")
+        sys.exit(1)
     
     return USBPATH
 
-# Finds and returns the port for the connected board.
-def get_com():
-    ports = serial.tools.list_ports.comports()
-    for p in ports:
-        if "VID:PID=0483:374" in p.hwid:
-            return p.device
-    
-    return " PORT ERR "
 
+
+def main():
+    flash_board(BIN_FILE, find_path(platform.platform()))
 
 
 if __name__ == "__main__":
-    com = get_com()
+    try:
+        main()
+    except Exception as e:
+        print(e)
+        sys.exit(1)
     
-    flash_board(BIN_FILE, find_path(platform.platform()))
-
-    # Wait until data comes through
-    port = serial.Serial(com, 115200)
-    while (port.in_waiting == 0):
-        time.sleep(0.01)
-    port.close()

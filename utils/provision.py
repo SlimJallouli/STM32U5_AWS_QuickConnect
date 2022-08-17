@@ -32,7 +32,7 @@ import logging
 import os
 import random
 import string
-import time
+import time, sys
 from time import monotonic
 
 import boto3
@@ -934,4 +934,8 @@ if __name__ == "__main__":
         level=logging.INFO,
         format="[ %(levelname)s ] %(message)s (%(filename)s:%(funcName)s)",
     )
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(e)
+        sys.exit(1)

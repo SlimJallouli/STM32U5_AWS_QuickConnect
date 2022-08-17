@@ -37,7 +37,8 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"h", ["help", "ssid=", "password="])
     except getopt.GetoptError:
-        sys.exit()
+        print("Parameter Error")
+        sys.exit(1)
 
     com = get_com()
 
@@ -45,12 +46,12 @@ def main(argv):
         ser = serial.Serial(com, 115200)
     except  Exception:  
         print("\r\nCould not open serial port\r\n")
-        sys.exit()
+        sys.exit(1)
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             print(*HELP)
-            sys.exit()
+            sys.exit(1)
 
         elif opt in ("--ssid"):
             print("Setting Wi-Fi SSID")
@@ -71,4 +72,8 @@ def main(argv):
     ser.close()
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    try:
+        main(sys.argv[1:])
+    except Exception as e:
+        print(e)
+        sys.exit(-1)
