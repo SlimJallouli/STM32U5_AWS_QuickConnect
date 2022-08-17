@@ -34,49 +34,70 @@ def main():
         try:
             thing_name = input("Thing name? \n")
             print("Getting:\n")
-            cert_arn = iot.list_thing_principals(thingName = thing_name)['principals'][0]
+            cert_arn_list = iot.list_thing_principals(thingName = thing_name)['principals']
             thing_found = True
         except iot.exceptions.ResourceNotFoundException:
             print("Thing " + thing_name + " not found.\n\n")
-    print("\tCertificate Arn - " + cert_arn + "\n")
-    cert_id = cert_arn.partition('/')[2]
-    print("\tCertificate ID - " + cert_id + "\n")
-    policy_name = iot.list_attached_policies(target = cert_arn)['policies'][0]['policyName']
-    print("\tPolicy Name - " + policy_name + "\n")
+    
+    
+    # Building a Dictionary {certArn: [list, of, policies]}
+    certDict = {}
+    for cert_arn in cert_arn_list:
+        print("\tCertificate Arn - " + cert_arn + "\n")
 
-    # Clean thing
-    print("Detaching certificate from thing...\n")
-    iot.detach_thing_principal(
-        thingName = thing_name, 
-        principal = cert_arn
-    )
-    print("Detaching policy from certificate...\n")
-    iot.detach_policy(
-        policyName = policy_name, 
-        target = cert_arn
-    )
+        policy_list = list(map(lambda p: p['policyName'], iot.list_attached_policies(target = cert_arn)['policies']))
+        for policy in policy_list:
+            print("\t\tPolicy Name - " + policy + "\n")
+
+        certDict[cert_arn] = policy_list
+
+    print(certDict)
+
+   
+    # Detaching certificates 
+    for cert_arn in cert_arn_list:
+        print("Detaching certificate from thing " + cert_arn + "...\n")
+        iot.detach_thing_principal(
+            thingName = thing_name, 
+            principal = cert_arn
+        )
+
+    
+    # Detaching every policy from all the attached certs
+    for cert_arn in certDict:
+        for policy_name in certDict[cert_arn]:
+            print("Detaching " + policy_name + " from " + cert_arn + "...\n")
+            iot.detach_policy(
+                policyName = policy_name, 
+                target = cert_arn
+            )
+
+
+    # Deleting the thing
     print("Deleting thing...\n")
     iot.delete_thing(
         thingName = thing_name
     )
-    # print("Deleting policy...\n")
-    # iot.delete_policy(
-    #     policyName = policy_name
-    # )
-    print("Deactivating certificate...\n")
-    iot.update_certificate(
-        certificateId = cert_id, 
-        newStatus = 'INACTIVE'
-    )
-    print("Revoking certificate...\n")
-    iot.update_certificate(
-        certificateId = cert_id, 
-        newStatus = 'REVOKED'
-    )
-    print("Deleting certificate...\n")
-    iot.delete_certificate(
-        certificateId = cert_id
-    )
+
+    # Deactivating Revoking and Deleting every Cert
+    for cert_arn in certDict:
+        cert_id = cert_arn.partition('/')[2]
+        print("Deactivating certificate " + cert_id + "...\n")
+        iot.update_certificate(
+            certificateId = cert_id, 
+            newStatus = 'INACTIVE'
+        )
+
+        print("Revoking certificate...\n")
+        iot.update_certificate(
+            certificateId = cert_id, 
+            newStatus = 'REVOKED'
+        )
+
+        print("Deleting certificate...\n")
+        iot.delete_certificate(
+            certificateId = cert_id
+        )
     
     print("Finished.\n")
 
