@@ -16,10 +16,11 @@ def main(argv):
     key = ''
     secretKey = ''
     deviceName = ''
+    bucketURL = ''
 
     # Collect Parameters from command line
     try:
-        opts, args = getopt.getopt(argv,"h", ["help", "key-id=", "secret-key=", "device-id="])
+        opts, args = getopt.getopt(argv,"h", ["help", "key-id=", "secret-key=", "device-id=", "bucket-url="])
     except getopt.GetoptError:
         print('Parameter Error')
         sys.exit(1)
@@ -38,9 +39,12 @@ def main(argv):
         elif opt in ("--device-id"):
             deviceName = arg
 
+        elif opt in ("--bucket-url"):
+            bucketURL = arg
+
         
     
-    url ="http://stm32u5-dashboard.s3-website-us-west-1.amazonaws.com/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
+    url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
     webbrowser.open(url)
 
     path = os.path.join('.\\', "STM32U5_AWS_Dashbaord.url")
