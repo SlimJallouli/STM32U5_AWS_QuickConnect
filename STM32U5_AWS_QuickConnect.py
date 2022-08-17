@@ -1,12 +1,12 @@
 import sys
 import subprocess
+from tokenize import Name
+from utils.getDeviceName import *
 
-
-NAME = 'G213801835'
-SSID = 'Ziply-3970'
-PSWD = 'clarycantusethis206'
-KEY = 'AKIAQC3VOUARXGGMWHHO'
-SECRET_KEY = '7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS'
+SSID = ''
+PSWD = ''
+KEY = ''
+SECRET_KEY = ''
 DUMMY_SSID = '0'
 DUMMY_PSWD = '0'
 
@@ -23,6 +23,9 @@ def cmd(path: list):
 
 
 def main():
+
+    NAME = get_name()
+    
     cmd(['python', 'utils\\flash.py'])
     cmd(['python', 'utils\\setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
     cmd(['python', 'utils\\provision.py', '--thing-name=' + NAME, '--wifi-ssid=' +  SSID, '--wifi-credential=' + PSWD])
