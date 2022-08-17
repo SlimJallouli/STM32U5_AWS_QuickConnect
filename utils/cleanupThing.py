@@ -51,8 +51,6 @@ def main():
 
         certDict[cert_arn] = policy_list
 
-    print(certDict)
-
    
     # Detaching certificates 
     for cert_arn in cert_arn_list:
