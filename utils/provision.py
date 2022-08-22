@@ -336,21 +336,24 @@ class AwsHelper:
     arn = None
 
     def __init__(self, args):
-        profile = "default"
-        if "aws-profile" in args:
+        profile = None
+        if "aws_profile" in args:
             profile = args.aws_profile
 
         region = None
-        if "aws-region" in args:
+        if "aws_region" in args:
             region = args.aws_region
 
         access_key_id = None
-        if "aws-access-key-id" in args:
+        if "aws_access_key_id" in args:
             access_key_id = args.aws_access_key_id
 
         secret_access_key = None
-        if "aws-access-key-secret" in args:
+        if "aws_access_key_secret" in args:
             secret_access_key = args.aws_access_key_secret
+
+        if access_key_id == None and secret_access_key == None:
+            profile = 'default'
 
         self.session = boto3.session.Session(
             profile_name=profile,
