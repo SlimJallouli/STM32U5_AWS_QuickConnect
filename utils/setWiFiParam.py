@@ -29,7 +29,7 @@ def commit(ser):
 
 def reset(ser):
     ser.write(bytes('reset\r\n', 'utf-8'))
-    time.sleep(1)
+    time.sleep(2)
 
 
 def main(argv):
