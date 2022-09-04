@@ -7,14 +7,13 @@ import time
 import serial.tools.list_ports
 
 
-#BIN File name
-BIN_FILE = '.\\bin\\b_u585i_iot02a_ntz.bin'
+# BIN File name
+BIN_FILE = '..\\..\\Projects\\b_u585i_iot02a_ntz\\Debug\\b_u585i_iot02a_ntz.bin'
 
 # List of possible board labels
 boards = ["DIS_U585AI"]
 
-
-
+# Flash the board using drag and drop
 def flash_board(flashing_file, USBPATH):
 
     session_os = platform.system()
@@ -29,7 +28,7 @@ def flash_board(flashing_file, USBPATH):
 
     os.system(cmd)
 
-
+# Find the board drive
 def find_path(op_sys):
     USBPATH = ''
     if "windows" in op_sys.lower():
