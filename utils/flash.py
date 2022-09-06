@@ -19,34 +19,22 @@ import platform
 import string
 import sys
 import time
-<<<<<<< HEAD
 import getopt
-=======
-import serial.tools.list_ports
 
-
-# BIN File name
-BIN_FILE = '..\\..\\Projects\\b_u585i_iot02a_ntz\\Debug\\b_u585i_iot02a_ntz.bin'
->>>>>>> ef5d4dec824e79f3c4cd3ee42d81ea2483903f91
 
 # List of possible board labels
 boards = ["DIS_U585AI", "NOD_U585AI"]
 
-<<<<<<< HEAD
 HELP = ['flash.py options:', 
         '\n\t-h or --help for help',
         '\n\t--bin-file= <bin file path>', 
         '\n\t--version for the file version']
 
-VERSION = "1.1.0"      
+VERSION = "1.2.0"      
 
 # Flash the board using drag and drop
 def flash_board(flashing_file, USBPATH, COM):
-=======
-# Flash the board using drag and drop
-def flash_board(flashing_file, USBPATH):
 
->>>>>>> ef5d4dec824e79f3c4cd3ee42d81ea2483903f91
     session_os = platform.system()
 
     # In Windows
@@ -61,7 +49,6 @@ def flash_board(flashing_file, USBPATH):
     if err!=0:
         sys.exit(1)
 
-<<<<<<< HEAD
     port = serial.Serial(COM, 115200)
     time.sleep(0.1)
 
@@ -69,8 +56,7 @@ def flash_board(flashing_file, USBPATH):
     while (port.in_waiting <= bytesToRead):
         time.sleep(0.1)
 
-=======
->>>>>>> ef5d4dec824e79f3c4cd3ee42d81ea2483903f91
+
 # Find the board drive
 def find_path(op_sys):
     USBPATH = ''
