@@ -9,11 +9,15 @@ import platform
 
 SSID = 'st_iot_demo'
 PSWD = 'stm32u585'
-DASHBOARD_KEY = 'AKIAQC3VOUARXGGMWHHO'
-DASHBOARD_SECRET_KEY = '7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS'
+
 DUMMY_SSID = '0'
 DUMMY_PSWD = '0'
-BUCKET_URL = 'https://main.d3mkj47qkab3qo.amplifyapp.com'
+
+DASHBOARD_KEY        = 'AKIAQC3VOUARXGGMWHHO'
+DASHBOARD_SECRET_KEY = '7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS'
+DASHBOARD_URL        = 'https://main.d3mkj47qkab3qo.amplifyapp.com'
+
+PROVISION_AWS_PROFILE = 'default'
 
 if platform.system() == 'Windows': 
     BIN_FILE = '.\\bin\\b_u585i_iot02a_ntz.bin'
@@ -25,10 +29,7 @@ HELP = ['openDashboard.py options:',
         '\n\t-h or --help for help',
         '\n\t-i for interactive mode',
         '\n\t--ssid=[WiFi SSID]', 
-        '\n\t--password=[WiFi Password]',
-        '\n\t--aws-region=[AWS_REGION]',
-        '\n\t--aws-access-key-id=[AWS Access Key]',
-        '\n\t--aws-access-key-secret=[AWS Secret Key]']
+        '\n\t--password=[WiFi Password]']
 
 # Run path in command line and output it to output.txt if logging level is greater than debug
 def cmd(path: list):
@@ -40,7 +41,7 @@ def cmd(path: list):
         print('Error: ' + path[1])
         sys.exit(1)
 
-
+################################
 def getParam(curParam, label):
     param = input(label + " [" + curParam + "]: ").strip()
 
@@ -49,6 +50,7 @@ def getParam(curParam, label):
     else:
         return curParam
 
+################################
 def getHiddenParam(curParam, label):
     hidden = '*' * len(curParam)
     param = getpass.getpass(prompt=label + " [" + hidden + "]: ").strip()
@@ -58,10 +60,10 @@ def getHiddenParam(curParam, label):
     else:
         return curParam
 
-
+################################
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv,"hi", ["help", "interactive", "ssid=", "password=", "key=", "secret-key="])
+        opts, args = getopt.getopt(argv,"hi", ["help", "interactive", "ssid=", "password="])
     except getopt.GetoptError:
         print("Parameter Error")
         sys.exit(1)
@@ -69,15 +71,11 @@ def main(argv):
     name = get_name()
     ssid = SSID
     pswd = PSWD
-    #key = KEY
-    #secretKey = SECRET_KEY
-    url = BUCKET_URL
     interactiveMode = False
-
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print(*HELP)
+            print(HELP)
             sys.exit(1)
 
         elif opt in ("--ssid"):
@@ -86,35 +84,20 @@ def main(argv):
         elif opt in ("--password"):
             pswd = arg
 
-        elif opt in ("--key"):
-            key = arg
-
-        elif opt in ("--secret-key"):
-            secretKey = arg
-
-        elif opt in ("--url"):
-            url = arg
-
-        elif opt in ("--device-name"):
-            name = arg
-
         elif opt in ("-i", "--interactive"):
             interactiveMode = True
-
-
 
     if interactiveMode:
         ssid = getParam(ssid, "Wi-Fi SSID")
         pswd = getHiddenParam(pswd, "Wi-Fi Password")
 
     
-    cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
+    #cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
     cmd(['python', 'utils\\setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
-    cmd(['python', 'utils\\provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd])
-    cmd(['python', 'utils\\openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ url])
+    cmd(['python', 'utils\\provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + PROVISION_AWS_PROFILE])
+    cmd(['python', 'utils\\openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ DASHBOARD_URL])
     cmd(['python', 'utils\\readSerial.py'])
 
-
-
+################################
 if __name__ == "__main__":
     main(sys.argv[1:])
