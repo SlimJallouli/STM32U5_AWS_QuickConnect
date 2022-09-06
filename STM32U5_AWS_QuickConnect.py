@@ -9,8 +9,8 @@ import platform
 
 SSID = 'st_iot_demo'
 PSWD = 'stm32u585'
-KEY = 'AKIAQC3VOUARXGGMWHHO'
-SECRET_KEY = '7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS'
+DASHBOARD_KEY = 'AKIAQC3VOUARXGGMWHHO'
+DASHBOARD_SECRET_KEY = '7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS'
 DUMMY_SSID = '0'
 DUMMY_PSWD = '0'
 BUCKET_URL = 'https://main.d3mkj47qkab3qo.amplifyapp.com'
@@ -69,8 +69,8 @@ def main(argv):
     name = get_name()
     ssid = SSID
     pswd = PSWD
-    key = KEY
-    secretKey = SECRET_KEY
+    #key = KEY
+    #secretKey = SECRET_KEY
     url = BUCKET_URL
     interactiveMode = False
 
@@ -111,7 +111,7 @@ def main(argv):
     cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
     cmd(['python', 'utils\\setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
     cmd(['python', 'utils\\provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd])
-    cmd(['python', 'utils\\openDashboard.py', '--device-id='+ name, '--key-id='+ key,  '--secret-key='+ secretKey, '--bucket-url='+ url])
+    cmd(['python', 'utils\\openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ url])
     cmd(['python', 'utils\\readSerial.py'])
 
 
