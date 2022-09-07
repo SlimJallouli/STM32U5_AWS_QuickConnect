@@ -113,11 +113,10 @@ def main(argv):
 
     
     cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
-    cmd(['python', 'utils\\setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
-    cmd(['python', 'utils\\provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + PROVISION_AWS_PROFILE])
-    cmd(['python', 'utils\\openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ DASHBOARD_URL])
-
-    cmd(['python', 'utils\\readSerial.py'])
+    cmd(['python3', 'utils/setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
+    cmd(['python3', 'utils/provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + PROVISION_AWS_PROFILE])
+    cmd(['python3', 'utils/openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ DASHBOARD_URL])
+    cmd(['python3', 'utils/readSerial.py'])
 
 ################################
 if __name__ == "__main__":
