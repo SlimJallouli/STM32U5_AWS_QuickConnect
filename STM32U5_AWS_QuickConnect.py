@@ -112,7 +112,7 @@ def main(argv):
         pswd = getHiddenParam(pswd, "Wi-Fi Password")
 
     
-    #cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
+    cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
     cmd(['python3', 'utils/setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
     cmd(['python3', 'utils/provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + PROVISION_AWS_PROFILE])
     cmd(['python3', 'utils/openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ DASHBOARD_URL])
