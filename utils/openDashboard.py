@@ -61,7 +61,7 @@ def main(argv):
     url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
     webbrowser.open(url)
 
-    path = os.path.join('.\\', "STM32U5_AWS_Dashbaord.url")
+    path = os.path.join('./', "STM32U5_AWS_Dashbaord.url")
     shortcut = open(path, 'w')
     shortcut.write('[InternetShortcut]\n')
     shortcut.write('URL=%s' % url)
