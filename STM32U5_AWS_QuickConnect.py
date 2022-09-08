@@ -129,7 +129,7 @@ def main(argv):
         dashboard_url = getParam(dashboard_url, "DASHBOARD_URL")
 
     
-    #cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
+    cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
     cmd(['python3', 'utils/setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
     cmd(['python3', 'utils/provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + aws_provision_profile])
     cmd(['python3', 'utils/openDashboard.py', '--device-id='+ name, '--dashboard-profile='+aws_dashboard_profile,   '--dashboard-url='+ dashboard_url])
