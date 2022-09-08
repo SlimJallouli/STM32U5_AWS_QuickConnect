@@ -32,7 +32,6 @@ import logging
 import os
 import random
 import string
-import time, sys
 from time import monotonic
 
 import boto3
@@ -106,7 +105,6 @@ class TargetDevice:
         logging.debug("RX: {} (_send_cmd)".format(cmd_readback))
         if cmd not in cmd_readback:
             raise TargetDevice.ReadbackError()
-        
 
     def _read_response(self, timeout=_timeout):
         """Read the response to a command"""
@@ -352,7 +350,7 @@ class AwsHelper:
         if "aws_access_key_secret" in args:
             secret_access_key = args.aws_access_key_secret
 
-        if access_key_id == None and secret_access_key == None:
+        if access_key_id == None and secret_access_key == None and profile == None:
             profile = 'default'
 
         self.session = boto3.session.Session(
@@ -856,7 +854,7 @@ def process_args():
     )
 
     # Use defaults from aws config, but allow user to override
-    parser.add_argument("--aws-profile", type=str, default="default")
+    parser.add_argument("--aws-profile", type=str)
     parser.add_argument("--aws-region", type=str)
     parser.add_argument("--aws-access-key-id", type=str)
     parser.add_argument("--aws-access-key-secret", type=str)
@@ -937,8 +935,4 @@ if __name__ == "__main__":
         level=logging.INFO,
         format="[ %(levelname)s ] %(message)s (%(filename)s:%(funcName)s)",
     )
-    try:
-        main()
-    except Exception as e:
-        print(e)
-        sys.exit(1)
+    main()
