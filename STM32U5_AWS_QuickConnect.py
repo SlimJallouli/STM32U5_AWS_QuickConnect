@@ -21,7 +21,7 @@ import getopt
 import getpass
 import platform
 
-VERSION = "1.2.0"
+VERSION = "1.3.0"
 
 SSID = 'st_iot_demo'
 PSWD = 'stm32u585'
@@ -29,11 +29,10 @@ PSWD = 'stm32u585'
 DUMMY_SSID = '0'
 DUMMY_PSWD = '0'
 
-DASHBOARD_KEY        = 'AKIAQC3VOUARXGGMWHHO'
-DASHBOARD_SECRET_KEY = '7QbU0RSsSquT9Hv3SGO9VJIBfINysxmRjadiqGsS'
 DASHBOARD_URL        = 'https://main.d3mkj47qkab3qo.amplifyapp.com'
 
-PROVISION_AWS_PROFILE = 'default'
+AWS_CLI_DASHBOARD_PROFILE = 'dash_board'
+AWS_CLI_PROVISION_PROFILE = 'default'
 
 if platform.system() == 'Windows': 
     BIN_FILE = '.\\bin\\b_u585i_iot02a_ntz.bin'
@@ -43,8 +42,11 @@ else:
 HELP = ['openDashboard.py options:', 
         '\n\t-h or --help for help',
         '\n\t-i for interactive mode',
-        '\n\t--ssid=[WiFi SSID]', 
+        '\n\t--ssid=[WiFi SSID]',
         '\n\t--password=[WiFi Password]', 
+        '\n\t--dashboard-profile=[aws cli dashboard profile]',
+        '\n\t--provision-profile=[aws cli provision profile]',
+        '\n\t--dashboard-url=[dashboard url]',
         '\n\t--version for the file version']
 
 # Run path in command line and output it to output.txt if logging level is greater than debug
@@ -79,7 +81,7 @@ def getHiddenParam(curParam, label):
 ################################
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv,"hi", ["help", "interactive", "ssid=", "password="])
+        opts, args = getopt.getopt(argv,"hi", ["help", "interactive", "ssid=", "password=", "dashboard-profile=", "provision-profile=", "dashboard-url="])
     except getopt.GetoptError:
         print("Parameter Error")
         sys.exit(1)
@@ -87,6 +89,9 @@ def main(argv):
     name = get_name()
     ssid = SSID
     pswd = PSWD
+    aws_dashboard_profile=AWS_CLI_DASHBOARD_PROFILE
+    aws_provision_profile=AWS_CLI_PROVISION_PROFILE
+    dashboard_url=DASHBOARD_URL
     interactiveMode = False
 
     for opt, arg in opts:
@@ -100,6 +105,15 @@ def main(argv):
         elif opt in ("--password"):
             pswd = arg
 
+        elif opt in ("--dashboard-profile"):
+            aws_dashboard_profile = arg    
+
+        elif opt in ("--provision-profile"):
+            aws_provision_profile = arg  
+
+        elif opt in ("--dashboard-url"):
+            dashboard_url = arg  
+
         elif opt in ("-i", "--interactive"):
             interactiveMode = True
         
@@ -110,12 +124,15 @@ def main(argv):
     if interactiveMode:
         ssid = getParam(ssid, "Wi-Fi SSID")
         pswd = getHiddenParam(pswd, "Wi-Fi Password")
+        aws_dashboard_profile = getParam(aws_dashboard_profile, "AWS_CLI_DASHBOARD_PROFILE")
+        aws_provision_profile = getParam(aws_provision_profile, "AWS_CLI_PROVISION_PROFILE")
+        dashboard_url = getParam(dashboard_url, "DASHBOARD_URL")
 
     
-    cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
+    #cmd(['python3', 'utils/flash.py', '--bin-file='+BIN_FILE])
     cmd(['python3', 'utils/setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
-    cmd(['python3', 'utils/provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + PROVISION_AWS_PROFILE])
-    cmd(['python3', 'utils/openDashboard.py', '--device-id='+ name, '--key-id='+ DASHBOARD_KEY,  '--secret-key='+ DASHBOARD_SECRET_KEY, '--bucket-url='+ DASHBOARD_URL])
+    cmd(['python3', 'utils/provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + aws_provision_profile])
+    cmd(['python3', 'utils/openDashboard.py', '--device-id='+ name, '--dashboard-profile='+aws_dashboard_profile,   '--dashboard-url='+ dashboard_url])
     cmd(['python3', 'utils/readSerial.py'])
 
 ################################
