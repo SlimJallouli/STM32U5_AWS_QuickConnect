@@ -16,25 +16,33 @@ import os, sys
 import getopt
 import webbrowser
 
+import boto3
+import boto3.session
 
+AWS_CLI_DASHBOARD_PROFILE = 'dash_board'
+ 
 
 HELP = ['openDashboard.py options:', 
         '\n\t-h or --help for help',
-        '\n\t--key-id=[access key]', 
-        '\n\t--secret-key=[secret key]', 
+        '\n\t--dashboard-profile=[aws cli dashboard profile]', 
         '\n\t--device-id=[device name]']
 
 
 def main(argv):
+    # Initialize Boto3 resources
+    AWS_CLI_DASHBOARD_PROFILE = "dash_board"
+    this_session = boto3.session.Session(profile_name=AWS_CLI_DASHBOARD_PROFILE)
+    credentials = this_session.get_credentials()
+    frozen_credentials = credentials.get_frozen_credentials()
 
-    key = ''
-    secretKey = ''
+    key = frozen_credentials.access_key
+    secretKey = frozen_credentials.secret_key
     deviceName = ''
     bucketURL = ''
 
     # Collect Parameters from command line
     try:
-        opts, args = getopt.getopt(argv,"h", ["help", "key-id=", "secret-key=", "device-id=", "bucket-url="])
+        opts, args = getopt.getopt(argv,"h", ["help", "dashboard-profile=", "device-id=", "dashboard-url="])
     except getopt.GetoptError:
         print('Parameter Error')
         sys.exit(1)
@@ -43,6 +51,15 @@ def main(argv):
         if opt in ("-h", "--help"):
             print(*HELP)
             sys.exit(1)
+        
+        elif opt in ("--dashboard-profile"):
+            AWS_CLI_DASHBOARD_PROFILE = arg
+            # Initialize Boto3 resources
+            this_session = boto3.session.Session(profile_name=AWS_CLI_DASHBOARD_PROFILE)
+            credentials = this_session.get_credentials()
+            frozen_credentials = credentials.get_frozen_credentials()
+            key = frozen_credentials.access_key
+            secretKey = frozen_credentials.secret_key
 
         elif opt in ("--key-id"):
             key = arg
@@ -53,7 +70,7 @@ def main(argv):
         elif opt in ("--device-id"):
             deviceName = arg
 
-        elif opt in ("--bucket-url"):
+        elif opt in ("--dashboard-url"):
             bucketURL = arg
 
         
