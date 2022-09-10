@@ -1,16 +1,24 @@
 # STM32U5_AWS_QuickConnect
 
-## Clone the repo
-`git clone https://github.com/SlimJallouli/STM32U5_AWS_QuickConnect.git`
+## Hardware requirements
+[B-U585I-IOT02A](https://estore.st.com/en/b-u585i-iot02a-cpn.html)
 
-## Create 2 IAM users
+## Software requirements
+* Clone the repo 
+```
+    git clone https://github.com/SlimJallouli/STM32U5_AWS_QuickConnect.git
+```
+* Install [AWS CLI](https://aws.amazon.com/cli/)
+* Install [python](https://www.python.org/downloads/)
+* run **pip install -r requirements.txt**
+
+* Sign in to [AWS console](https://console.aws.amazon.com/console/home)
+* Create 2 IAM users
+    * First usesr with the **AWSIoTFullAccess** policy. This IAM user will be used to register the device with AWS IoI core
     
-* First usesr with the AWSIoTFullAccess policy. This IAM user will be used to register the device with AWS IoI core
-    
-* Second user with the following policy
+    * Second user with the following policy
 
-``
-
+```
     {
         "Version": "2012-10-17",
         "Statement": [
@@ -37,15 +45,20 @@
             }
         ]
     }
-``
+```
 
 
 
-* use AWS CLI to create 2 profiles (default and dash_board)
+* Use AWS CLI to create 2 profiles (example **default** and **dash_board**)
+* Connect the board to you computer
+* Call the STM32U5_AWS_QuickConnect.py as following
 
-* python .\STM32U5_AWS_QuickConnect.py --ssid=<YOUR_2.4HGz_WIFI_SSID> --password=<YOUR_WIFI_PASSWORD> --dashboard-profile=<AWS_CLI_DASHBOARD_PROFILE> --provision-profile=<AWS_CLI_PROVISION_PROFILE> --dashboard-url=<DASHBOARD_URL>
+```
+python .\STM32U5_AWS_QuickConnect.py --ssid=<YOUR_2.4HGz_WIFI_SSID> --password=<YOUR_WIFI_PASSWORD> --dashboard-profile=<AWS_CLI_DASHBOARD_PROFILE> --provision-profile=<AWS_CLI_PROVISION_PROFILE> --dashboard-url=<DASHBOARD_URL>
+```
 
 
 ## Example:
-
-    python .\STM32U5_AWS_QuickConnect.py --ssid=st_iot_demo --password=stm32u585 --dashboard-profile=dash_board --provision-profile=default --dashboard-url=https://main.3mkj47qkab3qo.amplifyapp.com
+```
+python .\STM32U5_AWS_QuickConnect.py --ssid=st_iot_demo --password=stm32u585 --dashboard-profile=dash_board --provision-profile=default --dashboard-url=https://main.3mkj47qkab3qo.amplifyapp.com
+```
