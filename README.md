@@ -14,7 +14,7 @@
 
 * Sign in to [AWS console](https://console.aws.amazon.com/console/home)
 * Create 2 IAM users
-    * First usesr with the **AWSIoTFullAccess** policy. This IAM user will be used to register the device with AWS IoI core
+    * First usesr with the **AWSIoTFullAccess** policy. This IAM user will be used to register the device with AWS IoT core
     
     * Second user with the following policy
 
@@ -49,7 +49,7 @@
 
 
 
-* Use AWS CLI to create 2 profiles (example **default** and **dash_board**)
+* Use AWS CLI to create 2 profiles (example **provision** and **dash_board**)
 * Connect the board to you computer
 * Call the STM32U5_AWS_QuickConnect.py as following
 
