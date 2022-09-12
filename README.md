@@ -14,9 +14,9 @@
 
 * Sign in to [AWS console](https://console.aws.amazon.com/console/home)
 * Create 2 IAM users
-    * First usesr with the **AWSIoTFullAccess** policy. This IAM user will be used to register the device with AWS IoT core
+    * First usesr with the **AWSIoTFullAccess** policy. This IAM user will be used to register the device with AWS IoT core (used with the **provision** AWS CLI profile)
     
-    * Second user with the following policy
+    * Second user with the following policy (used with the **dash_board** AWS CLI profile)
 
 ```
     {
