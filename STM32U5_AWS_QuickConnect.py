@@ -21,7 +21,7 @@ import getopt
 import getpass
 import platform
 
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 
 SSID = 'st_iot_demo'
 PSWD = 'stm32u585'
@@ -31,8 +31,8 @@ DUMMY_PSWD = '0'
 
 DASHBOARD_URL        = 'https://main.d3mkj47qkab3qo.amplifyapp.com'
 
-AWS_CLI_DASHBOARD_PROFILE = 'dash_board'
-AWS_CLI_PROVISION_PROFILE = 'default'
+AWS_CLI_DASHBOARD_PROFILE = 'dashboard'
+AWS_CLI_PROVISION_PROFILE = 'provision'
 
 if platform.system() == 'Windows': 
     BIN_FILE = '.\\bin\\b_u585i_iot02a_ntz.bin'
