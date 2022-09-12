@@ -15,13 +15,16 @@
 
 import serial, serial.tools.list_ports
 import sys
+from uuid import getnode as get_mac
 
 
 def get_name():
     ports = serial.tools.list_ports.comports()
     for p in ports:
         if "VID:PID=0483:374" in p.hwid:
-            return 'stm32u5-' + p.serial_number[-10:]
+            mac = get_mac()
+            device_id = 'stm32u5-' + hex(mac)[-5:-1] + p.serial_number[-10:]
+            return device_id
     
     raise Exception("Port Error")
 
