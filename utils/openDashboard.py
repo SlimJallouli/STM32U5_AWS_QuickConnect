@@ -29,14 +29,8 @@ HELP = ['openDashboard.py options:',
 
 
 def main(argv):
-    # Initialize Boto3 resources
     AWS_CLI_DASHBOARD_PROFILE = "dash_board"
-    this_session = boto3.session.Session(profile_name=AWS_CLI_DASHBOARD_PROFILE)
-    credentials = this_session.get_credentials()
-    frozen_credentials = credentials.get_frozen_credentials()
 
-    key = frozen_credentials.access_key
-    secretKey = frozen_credentials.secret_key
     deviceName = ''
     bucketURL = ''
 
@@ -73,9 +67,24 @@ def main(argv):
         elif opt in ("--dashboard-url"):
             bucketURL = arg
 
-        
+    # Initialize Boto3 resources
+    this_session = boto3.session.Session(profile_name=AWS_CLI_DASHBOARD_PROFILE)
+    credentials = this_session.get_credentials()
+    frozen_credentials = credentials.get_frozen_credentials()
+
+    key = frozen_credentials.access_key
+    secretKey = frozen_credentials.secret_key
     
-    url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName
+    my_session = boto3.session.Session(profile_name=AWS_CLI_DASHBOARD_PROFILE)
+    REGION = my_session.region_name 
+    print(REGION)   
+
+    iot_client = boto3.client('iot', region_name=REGION)
+    endpoint_response = iot_client.describe_endpoint(endpointType='iot:Data-ATS')
+    IOT_ENDPOINT = endpoint_response['endpointAddress']
+    print(IOT_ENDPOINT)  
+    
+    url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName + "&REGION=" + REGION + "&IOT_ENDPOINT=" + IOT_ENDPOINT
     webbrowser.open(url)
 
     path = os.path.join('./', "STM32U5_AWS_Dashbaord.url")
