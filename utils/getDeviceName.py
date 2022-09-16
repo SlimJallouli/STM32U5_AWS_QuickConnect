@@ -23,7 +23,7 @@ def get_name():
     for p in ports:
         if "VID:PID=0483:374" in p.hwid:
             mac = get_mac()
-            device_id = 'stm32u5-' + hex(mac)[-5:-1] + p.serial_number[-10:]
+            device_id = 'stm32u5-' + hex(mac)[-5:-1] + p.serial_number[-10:] + p.device[-2:]
             return device_id
     
     raise Exception("Port Error")
