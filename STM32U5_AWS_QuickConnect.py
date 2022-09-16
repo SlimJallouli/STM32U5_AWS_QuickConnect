@@ -35,9 +35,9 @@ AWS_CLI_DASHBOARD_PROFILE = 'dashboard'
 AWS_CLI_PROVISION_PROFILE = 'provision'
 
 if platform.system() == 'Windows': 
-    BIN_FILE = '.\\bin\\b_u585i_iot02a_ntz.bin'
+    BIN_FILE = '..\\firmware\\Projects\\b_u585i_iot02a_ntz\\Debug\\b_u585i_iot02a_ntz.bin'
 else:
-    BIN_FILE = './bin/b_u585i_iot02a_ntz.bin'
+    BIN_FILE = '../firmware/Projects/b_u585i_iot02a_ntz/Debug/b_u585i_iot02a_ntz.bin'
 
 HELP = ['openDashboard.py options:', 
         '\n\t-h or --help for help',
