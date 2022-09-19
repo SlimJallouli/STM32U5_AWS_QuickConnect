@@ -1,0 +1,7 @@
+STM32U5_AWS_Dashbaord.url
+.cache/AmazonRootCA1.pem
+.cache/AmazonRootCA2.pem
+.cache/AmazonRootCA3.pem
+.cache/AmazonRootCA4.pem
+.cache/SFSRootCAG2.pem
+utils/__pycache__/getDeviceName.cpython-310.pyc
