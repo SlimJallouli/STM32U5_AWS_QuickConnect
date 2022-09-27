@@ -16,27 +16,80 @@
 # ******************************************************************************
 import boto3
 import boto3.session
+import sys
+import getopt
 
-PROFILE_NAME = 'default'
+HELP = ['cleanupThing.py options:', 
+        '\n\t-h or --help for help',
+        '\n\t--profile=[aws cli profile]', 
+        '\n\t--device-id=[device name]',
+        '\n\t--version for the file version']
+
+VERSION = "1.3.1"
 
 
+################################
+def getParam(curParam, label):
+    param = input(label + " [" + curParam + "]: ").strip()
 
-def main():
+    if param:
+        return param
+    else:
+        return curParam
+
+################################
+def main(argv):
+    thing_name = ''
+    interactiveMode = False
+    PROFILE_NAME = 'provision'
+
+    # Collect Parameters from command line
+    try:
+        opts, args = getopt.getopt(argv,"h", ["help", "interactive", "version", "profile=", "device-id="])
+    except getopt.GetoptError:
+        print('Parameter Error')
+        sys.exit(1)
+
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print(*HELP)
+            sys.exit(1)
+
+        elif opt in ("--device-id"):
+            thing_name = arg
+
+        elif opt in ("--profile"):
+            PROFILE_NAME = arg
+
+        elif opt in ("--version"):
+            print("cleanupThing.py version: " + VERSION)
+            sys.exit(1)
+
+    if(PROFILE_NAME == ''):
+        print("[ERROR] Please specify a profile")
+        sys.exit(1)
+
+    if(thing_name == ''):
+        print("[ERROR] Please specify a thing name")
+        sys.exit(1)
+
+    print("device-id: " + thing_name)
+    print("PROFILE_NAME: " + PROFILE_NAME)
+
 
     # Initialize Boto3 resources
     this_session = boto3.session.Session(profile_name=PROFILE_NAME)
     iot = this_session.client('iot')
-    thing_name = ''
     
     # Get resources
     thing_found = False
-    while not thing_found:
-        try:
-            thing_name = input("Thing name? \n")
+    #while not thing_found:
+    try:
+            #thing_name = input("Thing name? \n")
             print("Getting:\n")
             cert_arn_list = iot.list_thing_principals(thingName = thing_name)['principals']
             thing_found = True
-        except iot.exceptions.ResourceNotFoundException:
+    except iot.exceptions.ResourceNotFoundException:
             print("Thing " + thing_name + " not found.\n\n")
     
     
@@ -100,6 +153,10 @@ def main():
     print("Finished.\n")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main(sys.argv[1:])
+    except Exception as e:
+        print(e)
+        sys.exit(1)
 
 #************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/            

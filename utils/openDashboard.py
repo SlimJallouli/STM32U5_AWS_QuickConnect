@@ -19,7 +19,7 @@ import webbrowser
 import boto3
 import boto3.session
 
-AWS_CLI_DASHBOARD_PROFILE = 'dash_board'
+AWS_CLI_DASHBOARD_PROFILE = 'dashboard'
  
 
 HELP = ['openDashboard.py options:', 
