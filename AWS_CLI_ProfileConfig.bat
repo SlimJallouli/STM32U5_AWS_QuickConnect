@@ -17,13 +17,13 @@
 @echo off
 
 ::Setting provision profile credentials 
-set provision_accessKey=1234567890ABCDEFG
-set provision_secretKey=2YDnAuIZflnJt/bun8f2GoNScKQ8ao0YbnqFHUVBKNgEHg2k
-set provision_profile=provision
+set provision_accessKey=AKIAQC3VOUARQERJ5LVQ
+set provision_secretKey=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
+set provision_profile=default
 
 ::Setting dashboard profile credentials 
-set dashboard_accessKey=1234567890ABCDEFG
-set dashboard_secretKey=2YDnAuIZflnJt/bun8f2GoNScKQ8ao0YbnqFHUVBKNgEHg2k
+set dashboard_accessKey=AKIAQC3VOUARXGGMWHHO
+set dashboard_secretKey=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
 set dashboard_profile=dashboard
 
 set region=us-west-1

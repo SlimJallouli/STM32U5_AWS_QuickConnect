@@ -32,7 +32,7 @@ DUMMY_PSWD = '0'
 DASHBOARD_URL        = 'https://main.d3mkj47qkab3qo.amplifyapp.com'
 
 AWS_CLI_DASHBOARD_PROFILE = 'dashboard'
-AWS_CLI_PROVISION_PROFILE = 'provision'
+AWS_CLI_PROVISION_PROFILE = 'default'
 
 if platform.system() == 'Windows': 
     BIN_FILE = '..\\firmware\\Projects\\b_u585i_iot02a_ntz\\Debug\\b_u585i_iot02a_ntz.bin'
