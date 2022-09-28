@@ -31,7 +31,8 @@ outputForm='json'
 
 
 # Configures aws cli for prod account
-
+mv $HOME/.aws/config $HOME/.aws/config.bak
+rm -rf $HOME/.aws/config
 cat << EOF >> $HOME/.aws/config
 [$provision_profile]
 region = $region
@@ -41,6 +42,8 @@ region = $region
 output = $outputForm
 EOF
 
+mv $HOME/.aws/credentials $HOME/.aws/credentials.bak
+rm -rf $HOME/.aws/credentials
 cat << EOF >> $HOME/.aws/credentials
 [$provision_profile]
 aws_access_key_id = $provision_accessKey
