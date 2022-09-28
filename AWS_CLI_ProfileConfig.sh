@@ -31,7 +31,15 @@ outputForm='json'
 
 
 # Configures aws cli for prod account
-mv $HOME/.aws/config $HOME/.aws/config.bak
+file=$HOME/.aws/config.bak
+if [ ! -f $file ]; then
+  file=$HOME/.aws/config
+  if [ -f $file ]; then
+    mv $HOME/.aws/config $HOME/.aws/config.bak
+  fi
+fi
+
+
 rm -rf $HOME/.aws/config
 cat << EOF >> $HOME/.aws/config
 [$provision_profile]
@@ -42,7 +50,15 @@ region = $region
 output = $outputForm
 EOF
 
-mv $HOME/.aws/credentials $HOME/.aws/credentials.bak
+file=$HOME/.aws/credentials.bak
+if [ ! -f $file ]; then
+  file=$HOME/.aws/credentials
+  if [ -f $file ]; then
+    mv $HOME/.aws/credentials $HOME/.aws/credentials.bak
+  fi
+fi
+
+
 rm -rf $HOME/.aws/credentials
 cat << EOF >> $HOME/.aws/credentials
 [$provision_profile]
