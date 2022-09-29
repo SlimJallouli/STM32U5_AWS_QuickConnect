@@ -41,11 +41,11 @@ def getParam(curParam, label):
 def main(argv):
     thing_name = ''
     interactiveMode = False
-    PROFILE_NAME = 'provision'
+    PROFILE_NAME = 'default'
 
     # Collect Parameters from command line
     try:
-        opts, args = getopt.getopt(argv,"h", ["help", "interactive", "version", "profile=", "device-id="])
+        opts, args = getopt.getopt(argv,"hi", ["help", "interactive", "version", "profile=", "device-id="])
     except getopt.GetoptError:
         print('Parameter Error')
         sys.exit(1)
@@ -54,6 +54,11 @@ def main(argv):
         if opt in ("-h", "--help"):
             print(*HELP)
             sys.exit(1)
+
+        elif opt in ("-i"):
+            print("Interactive mode")
+            PROFILE_NAME = getParam(PROFILE_NAME, "profile name")
+            thing_name  = getParam(thing_name, "thing_name")
 
         elif opt in ("--device-id"):
             thing_name = arg
