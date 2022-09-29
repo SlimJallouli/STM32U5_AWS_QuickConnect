@@ -16,6 +16,34 @@
 
 @echo off
 
+cd %HOMEPATH%\.aws
+
+if exist config (
+    echo config file exist
+
+    if exist config.bak (
+        echo baclup file exist
+    ) else (
+        echo creating baclup file
+        ren config   config.bak
+    )
+
+    del config
+)
+
+if exist credentials (
+    echo config file exist
+
+    if exist credentials.bak (
+        echo baclup file exist
+    ) else (
+        echo creating baclup file
+        ren credentials   credentials.bak
+    )
+
+    del credentials
+)
+
 ::Setting provision profile credentials 
 set provision_accessKey=AKIAQC3VOUARQERJ5LVQ
 set provision_secretKey=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
