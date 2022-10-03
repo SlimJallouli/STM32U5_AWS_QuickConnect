@@ -123,9 +123,9 @@ def main(argv):
 
     if interactiveMode:
         ssid = getParam(ssid, "Wi-Fi SSID")
-        pswd = getHiddenParam(pswd, "Wi-Fi Password")
-        aws_dashboard_profile = getParam(aws_dashboard_profile, "AWS_CLI_DASHBOARD_PROFILE")
+        pswd = getParam(pswd, "Wi-Fi Password")
         aws_provision_profile = getParam(aws_provision_profile, "AWS_CLI_PROVISION_PROFILE")
+        aws_dashboard_profile = getParam(aws_dashboard_profile, "AWS_CLI_DASHBOARD_PROFILE")
         dashboard_url = getParam(dashboard_url, "DASHBOARD_URL")
 
     
@@ -133,7 +133,9 @@ def main(argv):
     cmd(['python', 'utils/setWiFiParam.py', '--ssid=' + DUMMY_SSID, '--password='+ DUMMY_PSWD])
     cmd(['python', 'utils/provision.py', '--thing-name=' + name, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd, '--aws-profile=' + aws_provision_profile])
     cmd(['python', 'utils/openDashboard.py', '--device-id='+ name, '--dashboard-profile='+aws_dashboard_profile,   '--dashboard-url='+ dashboard_url])
+    cmd(['python', 'utils/getConfig.py', '--device-id='+ name, '--profile='+aws_provision_profile, '--wifi-ssid=' +  ssid, '--wifi-credential=' + pswd])
     cmd(['python', 'utils/readSerial.py'])
+
 
 ################################
 if __name__ == "__main__":
