@@ -1,7 +1,7 @@
 ::******************************************************************************
 ::* @file    awsConfig.bat
 ::* @author  MCD Application Team
-::* @brief   Configures aws cli for prod account
+::* @brief   Configures AWS CLI for STM32U5_AWS_QuickConnect
 ::******************************************************************************
 :: * Copyright (c) 2022 STMicroelectronics.
 ::
@@ -19,29 +19,29 @@
 cd %HOMEPATH%\.aws
 
 if exist config (
-    echo config file exist
+    echo config file found
 
     if exist config.bak (
-        echo baclup file exist
+        echo backup config file found
+        echo Deleting config file
+        del config
     ) else (
-        echo creating baclup file
+        echo creating backup config file
         ren config   config.bak
     )
-
-    del config
 )
 
 if exist credentials (
-    echo config file exist
+    echo credentials file found
 
     if exist credentials.bak (
-        echo baclup file exist
+        echo backup credentials file found
+        echo Deleting credentials file
+        del credentials
     ) else (
-        echo creating baclup file
+        echo creating backup credentials file
         ren credentials   credentials.bak
     )
-
-    del credentials
 )
 
 ::Setting provision profile credentials 
