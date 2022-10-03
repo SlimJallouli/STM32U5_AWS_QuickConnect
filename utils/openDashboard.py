@@ -77,12 +77,10 @@ def main(argv):
     
     my_session = boto3.session.Session(profile_name=AWS_CLI_DASHBOARD_PROFILE)
     REGION = my_session.region_name 
-    print(REGION)   
 
     iot_client = boto3.client('iot', region_name=REGION)
     endpoint_response = iot_client.describe_endpoint(endpointType='iot:Data-ATS')
     IOT_ENDPOINT = endpoint_response['endpointAddress']
-    print(IOT_ENDPOINT)  
     
     url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName + "&REGION=" + REGION + "&IOT_ENDPOINT=" + IOT_ENDPOINT
     webbrowser.open(url)
