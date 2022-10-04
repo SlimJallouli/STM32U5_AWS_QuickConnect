@@ -54,7 +54,7 @@ set dashboard_accessKey=AKIAQC3VOUARXGGMWHHO
 set dashboard_secretKey=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
 set dashboard_profile=dashboard
 
-set region=us-west-1
+set region=us-east-1
 set outputForm=json
 
 

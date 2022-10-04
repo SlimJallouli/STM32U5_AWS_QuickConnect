@@ -26,7 +26,7 @@ dashboard_accessKey='AKIAQC3VOUARXGGMWHHO'
 dashboard_secretKey='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'
 dashboard_profile='dashboard'
 
-region='us-west-1'
+region='us-east-1'
 outputForm='json'
 
 
