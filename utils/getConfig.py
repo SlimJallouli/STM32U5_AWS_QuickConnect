@@ -32,6 +32,8 @@ def main(argv):
     deviceName = ''
     wifi_ssid = ''
     wifi_password = ''
+    keil_studio_url='https://studio.keil.arm.com/auth/login/'
+    git_url='https://github.com/ConstantlySorrowful/aws_mqtt_mutualauth_demo.git'
 
     # Collect Parameters from command line
     try:
@@ -82,8 +84,13 @@ def main(argv):
     
 
     with open('config.txt', 'w') as f:
+        f.write("keil_studio_url:    " + keil_studio_url + '\n\n')
+
+        f.write("git_url:     " + git_url + '\n\n')
+        
         f.write("key=" + key + '\n')
         f.write("secretKey=" + secretKey + '\n\n')
+
         f.write('export MQTT_BROKER_ENDPOINT=' + IOT_ENDPOINT +'\n')
         f.write('export IOT_THING_NAME=' + deviceName + '\n')
         f.write('export WIFI_SSID=' + wifi_ssid + '\n')
