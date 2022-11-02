@@ -45,13 +45,13 @@ if exist credentials (
 )
 
 ::Setting provision profile credentials 
-set provision_accessKey=AKIAQC3VOUARQERJ5LVQ
-set provision_secretKey=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
+set provision_accessKey=AKIAQC3VOUARTYLKQG56
+set provision_secretKey=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
 set provision_profile=default
 
 ::Setting dashboard profile credentials 
-set dashboard_accessKey=AKIAQC3VOUARXGGMWHHO
-set dashboard_secretKey=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
+set dashboard_accessKey=AKIAQC3VOUARTYLKQG56
+set dashboard_secretKey=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
 set dashboard_profile=dashboard
 
 set region=us-east-1

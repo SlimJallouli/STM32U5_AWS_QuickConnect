@@ -82,7 +82,7 @@ def main(argv):
     endpoint_response = iot_client.describe_endpoint(endpointType='iot:Data-ATS')
     IOT_ENDPOINT = endpoint_response['endpointAddress']
     
-    url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&DeviceID=" + deviceName + "&REGION=" + REGION + "&IOT_ENDPOINT=" + IOT_ENDPOINT
+    url = bucketURL + "/?KEY_ID="+ key + "&SECRET_KEY=" + secretKey + "&REGION=" + REGION + "&IOT_ENDPOINT=" + IOT_ENDPOINT + "&DeviceID=" + deviceName
     webbrowser.open(url)
 
     path = os.path.join('./', "STM32U5_AWS_Dashbaord.url")

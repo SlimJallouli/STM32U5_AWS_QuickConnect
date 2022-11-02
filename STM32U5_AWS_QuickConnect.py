@@ -125,7 +125,8 @@ def main(argv):
         ssid = getParam(ssid, "Wi-Fi SSID")
         pswd = getParam(pswd, "Wi-Fi Password")
         aws_provision_profile = getParam(aws_provision_profile, "AWS_CLI_PROVISION_PROFILE")
-        aws_dashboard_profile = getParam(aws_dashboard_profile, "AWS_CLI_DASHBOARD_PROFILE")
+        #aws_dashboard_profile = getParam(aws_dashboard_profile, "AWS_CLI_DASHBOARD_PROFILE")
+        aws_dashboard_profile = getParam(aws_dashboard_profile, "AWS_CLI_PROVISION_PROFILE")
         dashboard_url = getParam(dashboard_url, "DASHBOARD_URL")
 
     

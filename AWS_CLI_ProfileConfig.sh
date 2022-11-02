@@ -17,13 +17,13 @@
 # ******************************************************************************
 
 # Setting provision profile credentials 
-provision_accessKey='AKIAQC3VOUARQERJ5LVQ'
-provision_secretKey='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'
+provision_accessKey='AKIAQC3VOUARTYLKQG56'
+provision_secretKey='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'
 provision_profile='default'
 
 # Setting dashboard profile credentials 
-dashboard_accessKey='AKIAQC3VOUARXGGMWHHO'
-dashboard_secretKey='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'
+dashboard_accessKey='AKIAQC3VOUAR3RVPXPPI'
+dashboard_secretKey='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'
 dashboard_profile='dashboard'
 
 region='us-east-1'
